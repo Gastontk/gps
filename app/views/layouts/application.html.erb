@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Logintemplate</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+	<% if flash[:nav] %>
+		<div style ='color:red;margin-left:20px;'><%=flash[:nav] %></div>
+	<% end %>
+<div class='header col-md-4 pull-right'>
+	<% if current_user %>
+  <h1>You live in  <%= current_user.city %>. and your GEOLOCATION info is lattitude:<%= current_user.latitude %>, longitude: <%= current_user.longitude %></h1>
+  <h1>Distance as the crow flies between your address and Manson, Wa. In miles:<%= Geocoder::Calculations.distance_between([47.8847, -120.1567], [current_user.latitude, current_user.longitude]) %></h1>
+	  Signed in as <%= current_user.first_name %> <%= current_user.last_name %>| <%= link_to "Logout", '/logout' %>
+	<% else %>
+	  <%= link_to 'Login', '/signup' %> | <%= link_to 'Signup', '/signup' %>
+	<% end %>
+</div>
+
+<div id="main-container" class="container">
+  <div class="row">
+
+    <div class="col-xs-9">
+      <%= yield %>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
