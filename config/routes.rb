@@ -24,6 +24,8 @@ Rails.application.routes.draw do
 
   # redirect to main page for Sara's charity
   get '/main' => 'users#main'
+  # get internet ip as a lark
+  get '/ip' => 'users#ip'
 
 
   # handle all unknown routes to 404 page

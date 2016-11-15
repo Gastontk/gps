@@ -2,7 +2,21 @@ class UsersController < ApplicationController
 	# Remember to add before_filter :authorize to any controllers that 
 	# should be blocked without proper login
 
+
+
+  # unconnected page for determining client IP. Maybe used for distance soon
+  def ip
+    # render plain: request.remote_ip
+    # @ip = Geocoders::IpGeocoder.geocode(request.remote_ip)
+    # render plain: request.remote_ip
+
+
+  end
+
+
+
   def main
+    redirect_to '/signup' unless current_user
     @users = User.all
   end
   def new
