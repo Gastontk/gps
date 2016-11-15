@@ -1,4 +1,12 @@
 <h1>Here is your IP info</h1>
 
-<h3> <%=request.remote_ip unless request.remote_ip==='::1'%></h3>
+<h3> <% unless request.remote_ip =='::1'%>
+		You appear to be in: <%=request.location.city %> <br>
+		<%=request.remote_ip%> <br>
+		lattitude: <%=request.location.latitude %> <br>
+		longitude: <%=request.location.longitude %> <br>
+
+
+	<% end %>
+</h3>
 
