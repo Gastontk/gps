@@ -6,7 +6,13 @@
 		lattitude: <%=request.location.latitude %> <br>
 		longitude: <%=request.location.longitude %> <br>
 
+		<br> <br><br>
+		<% gps_loc = "#{request.location.latitude}, #{request.location.longitude}" %>
+		<% query = Geocoder.search(gps_loc).first %>
+		Derived location from IP address: <%=  query.location %>
+
 
 	<% end %>
+
 </h3>
 

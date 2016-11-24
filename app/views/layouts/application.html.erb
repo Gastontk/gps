@@ -7,18 +7,41 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <h3 style='color:red'><img style='width:128px;height:128px'src="/assets/CAUTION.png" alt=""> TEST SITE. EXPECT NEITHER SECURITY NOR STABILITY. SWIM AT YOUR OWN RISK <img style='width:128px;height:128px'src="/assets/CAUTION.png" alt=""></h3> 
-	<% if flash[:nav] %>
-		<div style ='color:red;margin-left:20px;'><%=flash[:nav] %></div>
-	<% end %>
+  <!-- Warning insertion at top of every page. No trustworthy security or usefullness -->
+  <h3 style='color:red'><img style='width:128px;height:128px'src="/assets/CAUTION.png" alt=""> TEST SITE. EXPECT NEITHER SECURITY NOR STABILITY. SWIM AT YOUR OWN RISK <img style='width:128px;height:128px'src="/assets/CAUTION.png" alt=""></h3>
+  <!-- End of warning section -->
+
+<!-- Section to take a guess at user location using IP info -->
+  <!--  
+  <% gps_loc = "#{request.location.latitude}, #{request.location.longitude}" %>
+  <%= gps_loc %>
+  <% query = Geocoder.search(gps_loc).first %>
+  <h3>By your IP address, I'm guessing you are close to: </h3>
+  <% if query %>
+    <%=query.address %>
+  <%else %>
+    Hmm... I can't determine your address from you IP address. Sorry!
+  <% end %>-->
+<!-- End of IP GPS location section-->
+
+<!-- Flash message -->
+
+        <% if flash[:nav] %>
+                <div style ='color:red;margin-left:20px;'><%=flash[:nav] %></div>
+        <% end %>
+<!-- end flash message -->
+
+
+<!-- Gps based on address and distance to Manson, Wa -->
 <div class='header col-md-4 pull-right'>
-	<% if current_user %>
-  <h1>You live in  <%= current_user.city %>. and your GEOLOCATION info is lattitude:<%= current_user.latitude %>, longitude: <%= current_user.longitude %></h1>
-  <h1>Distance as the crow flies between your address and Manson, Wa. In miles:<%= Geocoder::Calculations.distance_between([47.8847, -120.1567], [current_user.latitude, current_user.longitude]) %></h1>
-	  Signed in as <%= current_user.first_name %> <%= current_user.last_name %>| <%= link_to "Logout", '/logout' %>
-	<% else %>
-	  <%= link_to 'Login', '/signup' %> | <%= link_to 'Signup', '/signup' %>
-	<% end %>
+        <% if current_user %>
+  <!--<h1>You live in  <%= current_user.city %>. and your GEOLOCATION info is lattitude:<%= current_user.latitude %>, longitude: <%= current_user.longitude %></h1>
+  <h1>Distance as the crow flies between your address and Manson, Wa. In miles:<%= Geocoder::Calculations.distance_between([47.8847, -120.1567], [current_user.latitude, current_user.longitude]) %></h1> -->
+  <!-- User bar and logout login depending on session (current_user) status -->
+          Signed in as <%= current_user.first_name %> <%= current_user.last_name %>| <%= link_to "Logout", '/logout' %>
+        <% else %>
+          <%= link_to 'Login', '/signup' %> | <%= link_to 'Signup', '/signup' %>
+        <% end %>
 </div>
 
 <div id="main-container" class="container">

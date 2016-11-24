@@ -8,6 +8,13 @@ gem 'bootstrap_form'
 # added geocoding gem
 gem 'geocoder'
 
+# Added gmaps4rails gem allowing for google maps usage https://github.com/apneadiving/Google-Maps-for-Rails
+gem 'gmaps4rails'
+# underscore required for gmaps4rails
+# gem 'underscore-rails'
+
+
+
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
