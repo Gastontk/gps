@@ -5,31 +5,32 @@
 <% if current_user %>
 
 	<h1><%= current_user.first_name %> You have a few choices:</h1>
-	<table style ='border:solid'>
-		<tr>
+	<table class='table table-bordered table-hover'>
+		<tr class='info'>
 			<th>Distance</th>
 			<th>Name</th>
 			<th>email</th>
 		</tr>
 		<% @users.each do  |t| %>
 			<% unless t.email == current_user.email %>
-				<tr>
+				
 					<% if Geocoder::Calculations.distance_between([t.latitude, t.longitude], [current_user.latitude, current_user.longitude]) < 50 %>
-
-						<td style ='color:green'><%=Geocoder::Calculations.distance_between([t.latitude, t.longitude], [current_user.latitude, current_user.longitude]).round(2) %> miles</td>
+						<tr class='success'>
+						<td ><%=Geocoder::Calculations.distance_between([t.latitude, t.longitude], [current_user.latitude, current_user.longitude]).round(2) %> miles</td>
 					<% elsif Geocoder::Calculations.distance_between([t.latitude, t.longitude], [current_user.latitude, current_user.longitude]).between?(50,100)  %>
-
-						<td style ='color:orange'><%=Geocoder::Calculations.distance_between([t.latitude, t.longitude], [current_user.latitude, current_user.longitude]).round(2)  %>miles</td>
+						<tr class='warning'>
+						<td class ='warning'><%=Geocoder::Calculations.distance_between([t.latitude, t.longitude], [current_user.latitude, current_user.longitude]).round(2)  %>miles</td>
 					<%elsif Geocoder::Calculations.distance_between([t.latitude, t.longitude], [current_user.latitude, current_user.longitude]) >100 %>
-						<td style ='color:red'> <%=Geocoder::Calculations.distance_between([t.latitude, t.longitude], [current_user.latitude, current_user.longitude]).round(2) %> miles</td></td>
+						<tr class='danger'>
+						<td class='danger'> <%=Geocoder::Calculations.distance_between([t.latitude, t.longitude], [current_user.latitude, current_user.longitude]).round(2) %> miles</td></td>
 
 					<% end %>
 					<td><%=t.first_name%> <%=t.last_name%></td>
-					<td><%=t.email %></td>
+					<td><a href="mailto:<%=t.email%>?Subject=Hello%20again" ><%=t.email%></a></td>
 				</tr>
 				
 
-				distance from your address to <%=t.first_name%> <%=t.last_name%>: <%=Geocoder::Calculations.distance_between([t.latitude, t.longitude], [current_user.latitude, current_user.longitude])%> miles. Aproximately
+				
 			<%end%>
 		<% end %>
 	</table>
