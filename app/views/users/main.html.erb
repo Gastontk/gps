@@ -19,10 +19,10 @@
 						<td ><%=Geocoder::Calculations.distance_between([t.latitude, t.longitude], [current_user.latitude, current_user.longitude]).round(2) %> miles</td>
 					<% elsif Geocoder::Calculations.distance_between([t.latitude, t.longitude], [current_user.latitude, current_user.longitude]).between?(50,100)  %>
 						<tr class='warning'>
-						<td class ='warning'><%=Geocoder::Calculations.distance_between([t.latitude, t.longitude], [current_user.latitude, current_user.longitude]).round(2)  %>miles</td>
+						<td class ='warning'><%=Geocoder::Calculations.distance_between([t.latitude, t.longitude], [current_user.latitude, current_user.longitude]).round(1)  %>miles</td>
 					<%elsif Geocoder::Calculations.distance_between([t.latitude, t.longitude], [current_user.latitude, current_user.longitude]) >100 %>
 						<tr class='danger'>
-						<td class='danger'> <%=Geocoder::Calculations.distance_between([t.latitude, t.longitude], [current_user.latitude, current_user.longitude]).round(2) %> miles</td></td>
+						<td class='danger'> <%=Geocoder::Calculations.distance_between([t.latitude, t.longitude], [current_user.latitude, current_user.longitude]).round(0) %> miles</td></td>
 
 					<% end %>
 					<td><%=t.first_name%> <%=t.last_name%></td>

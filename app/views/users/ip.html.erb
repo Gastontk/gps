@@ -9,10 +9,19 @@
 		<br> <br><br>
 		<% gps_loc = "#{request.location.latitude}, #{request.location.longitude}" %>
 		<% query = Geocoder.search(gps_loc).first %>
-		Derived location from IP address: <%=  query.location %>
-
+		Derived location from IP address: <% if query.methods.include?(:location)  %>
+                                                  <%= query.location %>
+                                          <% else %>
+                                                  <%= "Not enough info to figure it out!" %>
+                                          <% end %>
 
 	<% end %>
 
 </h3>
 
+
+
+
+
+
+<a href="http://www.gastonkennedy.com:800">Sara's test site</a>
