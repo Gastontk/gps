@@ -1,10 +1,14 @@
-
-
-
-
 <% if current_user %>
+<!-- Added javascript for sweetalert js and cxx addin -->
 
-	<h1><%= current_user.first_name %> You have a few choices:</h1>
+	  <h1>Possible Matches for <%= link_to current_user.first_name + ':', "javascript:swal({title: '<h3> Are you sure? Click link below.</h3>',
+	  													timer: 6000,
+	  													animation: false,
+														text: '<a href=#{edit_user_path(current_user)}> Edit Info for #{current_user.first_name}</a>  <br> <a href=/ch_password> Change Password for  #{current_user.first_name}</a> ' ,
+										 				html: true,
+										 				confirmButtonText: 'Cancel Edit',
+
+										})" %> </h1>
 	<table class='table table-bordered table-hover'>
 		<tr class='info'>
 			<th>Distance</th>
@@ -26,7 +30,7 @@
 
 					<% end %>
 					<td><%=t.first_name%> <%=t.last_name%></td>
-					<td><a href="mailto:<%=t.email%>?Subject=Hello%20again" ><%=t.email%></a></td>
+					<td><a href="mailto:<%=t.email%>?Subject=Hello <%= t.first_name %>!!, you have a new potential protest buddy:&body=Hi <%= t.first_name %>, %0D %09 <%=current_user.first_name%> <%= current_user.last_name%> is interested in ride sharing with you!!!  They live around <%=Geocoder::Calculations.distance_between([t.latitude, t.longitude], [current_user.latitude, current_user.longitude]).round(0) %> miles from you. log into http;//www.gastonkennedy.com to see more" ><%=t.email%></a></td>
 				</tr>
 				
 

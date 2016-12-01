@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :users
   get 'sessions/new'
 
   get 'sessions/create'
@@ -8,6 +9,8 @@ Rails.application.routes.draw do
   get 'users/new'
 
   get 'users/create'
+
+  # get 'users/ch_password'
 
   root 'users#main'
 
@@ -26,6 +29,11 @@ Rails.application.routes.draw do
   get '/main' => 'users#main'
   # get internet ip as a lark
   get '/ip' => 'users#ip'
+
+  # modify users info
+  post '/edit_user' => 'users#edit'
+  get '/ch_password' => 'users#ch_password'
+  post '/update_password' => 'users#update_password'
 
 
   # handle all unknown routes to 404 page

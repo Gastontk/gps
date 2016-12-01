@@ -42,6 +42,48 @@ class UsersController < ApplicationController
   end
 
 
+  def edit
+    @user = current_user
+  end
+
+  def update
+    # render plain: user_params
+    @user = User.find(params[:id])
+    # render plain: "In update"
+    # render plain: user_params
+
+    # render plain: current_user.first_name
+    # @user = User.find_by_id(current_user.id)
+    # @user.update(user_params)
+    if @user.update_attributes(user_params)
+       # current_user = @user
+      # render plain: @user.first_name
+      redirect_to '/main'
+    else
+      render plain: @user.errors.first
+    end
+    
+  end
+  def ch_password
+
+  end
+
+  def update_password
+    @user = User.find_by_id(current_user.id)
+    if @user.authenticate(params[:update][:old_password]) && params[:update][:password] ==params[:update][:password_confirmation]
+      @user.password = params[:update][:password]
+      if @user.save
+          # render plain: "Correct old password and new passwords match"
+          redirect_to '/main'
+      else
+          render plain: @user.errors.first
+      end
+    else
+      render plain: "Wrong password entered"
+    end
+  end
+
+
   # holding page to be replaced by real page eventually.
   def holding_page
 
@@ -53,5 +95,6 @@ class UsersController < ApplicationController
   private
   	def user_params
   		params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :street, :city, :state, :zip)
-	end
+
+    end
 end
